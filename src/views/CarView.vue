@@ -133,11 +133,11 @@ onMounted(async () => {
             <button
               v-for="(photo, index) in car?.photos"
               :key="index"
-              @click="selectImage(index)"
+              @click="selectImage(Number(index))"
               class="thumbnail"
-              :class="{ active: index === currentImageIndex }"
+              :class="{ active: Number(index) === currentImageIndex }"
             >
-              <img :src="photo" :alt="`Thumbnail ${index + 1}`" />
+              <img :src="photo" :alt="`Thumbnail ${Number(index) + 1}`" />
             </button>
           </div>
         </div>
@@ -156,7 +156,7 @@ onMounted(async () => {
           <p class="info-item price-item">
             <span class="info-label">Price:</span>
             <span v-if="car?.price_usd" class="info-value price">
-              ${{ car.price_usd.toLocaleString() }}
+              ${{ Number(car.price_usd).toLocaleString() }}
             </span>
             <span v-else class="info-value">Price on request</span>
           </p>
