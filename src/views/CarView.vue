@@ -183,12 +183,41 @@ onMounted(async () => {
           <line x1="6" y1="6" x2="18" y2="18"></line>
         </svg>
       </button>
+
+      <!-- Navigation Arrows in Lightbox -->
+      <button
+        v-if="hasMultipleImages"
+        @click.stop="prevImage"
+        class="lightbox-nav lightbox-nav-left"
+        aria-label="Previous image"
+      >
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+
+      <button
+        v-if="hasMultipleImages"
+        @click.stop="nextImage"
+        class="lightbox-nav lightbox-nav-right"
+        aria-label="Next image"
+      >
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+
       <img
         :src="currentImage"
         :alt="`${car?.brand} ${car?.model}`"
         class="lightbox-image"
         @click.stop
       />
+
+      <!-- Image Counter in Lightbox -->
+      <div v-if="hasMultipleImages" class="lightbox-counter">
+        {{ currentImageIndex + 1 }} / {{ car?.photos?.length }}
+      </div>
     </div>
   </div>
 </template>
@@ -450,6 +479,57 @@ onMounted(async () => {
 .lightbox-close:hover {
   background: rgba(255, 255, 255, 0.2);
   transform: scale(1.1);
+}
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  border: none;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, transform 0.2s;
+  z-index: 10002;
+  backdrop-filter: blur(10px);
+}
+
+.lightbox-nav:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.lightbox-nav:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.lightbox-nav-left {
+  left: 40px;
+}
+
+.lightbox-nav-right {
+  right: 40px;
+}
+
+.lightbox-counter {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 24px;
+  font-size: 16px;
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+  z-index: 10002;
 }
 
 @media (max-width: 768px) {
