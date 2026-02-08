@@ -7,7 +7,7 @@ defineProps<{
     description: string
     whatsapp: string
     phone: string
-    hero_image_url?: string
+    hero_image?: string
   }
 }>()
 </script>
@@ -16,8 +16,8 @@ defineProps<{
   <section class="hero">
     <div class="hero-inner">
       <img
-        v-if="profile.hero_image_url"
-        :src="profile.hero_image_url"
+        v-if="profile.hero_image"
+        :src="profile.hero_image"
         class="hero-img"
         alt="Profile"
       />
