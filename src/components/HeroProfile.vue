@@ -254,33 +254,51 @@ defineProps<{
 }
 
 @media (max-width: 768px) {
-  .profile-content {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 20px;
+  .hero {
+    padding: 20px 12px;
   }
 
-  .profile-info {
-    text-align: center;
+  .profile-content {
+    gap: 16px;
+  }
+
+  .hero-img {
+    width: 80px;
+    height: 80px;
   }
 
   .profile-info h1 {
-    font-size: 26px;
+    font-size: 20px;
+    margin-bottom: 4px;
   }
 
   .company {
-    font-size: 18px;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .desc {
+    font-size: 13px;
   }
 
   .contact-container {
-    flex-direction: column;
-    gap: 20px;
+    max-width: 100%;
   }
 
-  .contact-icon {
-    width: 100%;
-    max-width: 200px;
+  .btn {
+    min-width: 180px;
+    font-size: 14px;
+    padding: 10px 18px;
+  }
+
+  .btn.phone {
+    font-size: 15px;
+    padding: 12px 18px;
   }
 }
 </style>
