@@ -14,6 +14,16 @@ const activeBrand = ref<string | null>(null)
 const { isLoading, progress, preloadImages } = useImagePreloader()
 
 onMounted(async () => {
+  // 0. Убираем начальный лоадер из index.html
+  const initialLoader = document.getElementById("initial-loader")
+  if (initialLoader) {
+    initialLoader.style.opacity = "0"
+    initialLoader.style.transition = "opacity 0.3s ease"
+    setTimeout(() => {
+      initialLoader.remove()
+    }, 300)
+  }
+
   // 1. Загружаем данные
   profile.value = await fetchProfile()
   cars.value = await fetchCars()
