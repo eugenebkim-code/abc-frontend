@@ -87,7 +87,7 @@ const progressPercent = computed(() => {
   font-weight: 600;
   margin: 0 0 30px;
   letter-spacing: 0.5px;
-  text-shadow: 0 2px 10px rgba(74, 222, 128, 0.3);
+  text-shadow: 0 2px 10px rgba(37, 99, 235, 0.3);
 }
 
 /* Progress wrapper */
@@ -108,16 +108,16 @@ const progressPercent = computed(() => {
   height: 100%;
   background: linear-gradient(
     90deg,
-    #4ade80 0%,
-    #22c55e 50%,
-    #4ade80 100%
+    #3b82f6 0%,
+    #2563eb 50%,
+    #3b82f6 100%
   );
   background-size: 200% 100%;
   border-radius: 100px;
   transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow:
-    0 0 20px rgba(74, 222, 128, 0.6),
-    0 0 40px rgba(74, 222, 128, 0.3);
+    0 0 20px rgba(37, 99, 235, 0.6),
+    0 0 40px rgba(37, 99, 235, 0.3);
   position: relative;
   animation: shimmer 2s infinite;
 }
@@ -143,9 +143,9 @@ const progressPercent = computed(() => {
   margin-top: 20px;
   font-size: 48px;
   font-weight: 700;
-  color: #4ade80;
+  color: #3b82f6;
   text-shadow:
-    0 0 10px rgba(74, 222, 128, 0.5),
+    0 0 10px rgba(37, 99, 235, 0.5),
     0 2px 4px rgba(0, 0, 0, 0.3);
   font-variant-numeric: tabular-nums;
   letter-spacing: -2px;
@@ -162,10 +162,10 @@ const progressPercent = computed(() => {
 .loading-dots span {
   width: 8px;
   height: 8px;
-  background: #4ade80;
+  background: #3b82f6;
   border-radius: 50%;
   animation: bounce 1.4s infinite ease-in-out both;
-  box-shadow: 0 0 10px rgba(74, 222, 128, 0.5);
+  box-shadow: 0 0 10px rgba(37, 99, 235, 0.5);
 }
 
 .loading-dots span:nth-child(1) {

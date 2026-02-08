@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref, computed } from "vue"
 import { useRoute } from "vue-router"
-import { useImagePreloader } from "../composables/useImagePreloader"
-import LoadingBar from "../components/LoadingBar.vue"
 
 const route = useRoute()
 const carId = route.params.id as string
@@ -11,20 +9,6 @@ const car = ref<any>(null)
 const loading = ref(true)
 const error = ref("")
 const currentImageIndex = ref(0)
-
-const {
-  isLoading: imageLoading,
-  progress,
-  preloadImages
-} = useImagePreloader()
-
-// Показываем loading bar если загружаются данные или изображения
-const showLoading = computed(() => loading.value || imageLoading.value)
-const loadingMessage = computed(() => {
-  if (loading.value) return "Loading car details..."
-  if (imageLoading.value) return "Loading images..."
-  return "Loading..."
-})
 
 const currentImage = computed(() => {
   if (!car.value?.photos?.length) return null
@@ -61,11 +45,6 @@ onMounted(async () => {
     }
 
     car.value = await res.json()
-
-    // Прелоадим все изображения машины
-    if (car.value?.photos?.length) {
-      await preloadImages(car.value.photos)
-    }
   } catch (e) {
     error.value = "Failed to load car"
   } finally {
@@ -75,19 +54,16 @@ onMounted(async () => {
 </script>
 
 <template>
-  <!-- Loading overlay -->
-  <LoadingBar
-    v-if="showLoading"
-    :progress="progress"
-    :message="loadingMessage"
-  />
-
   <div style="padding:40px; max-width:1200px; margin:auto;">
     <div v-if="error" style="color:red">
       {{ error }}
     </div>
 
-    <div v-show="!showLoading && !error">
+    <div v-if="loading" style="text-align:center; padding:60px 0; color:#666;">
+      Loading...
+    </div>
+
+    <div v-show="!loading && !error">
       <!-- Gallery Section -->
       <div v-if="currentImage" class="gallery-container">
         <!-- Main Image with Navigation Arrows -->
@@ -153,6 +129,11 @@ onMounted(async () => {
             <span class="info-value">{{ car?.year }}</span>
           </p>
 
+          <p v-if="car?.mileage_km" class="info-item">
+            <span class="info-label">Mileage:</span>
+            <span class="info-value">{{ Number(car.mileage_km).toLocaleString() }} km</span>
+          </p>
+
           <p class="info-item price-item">
             <span class="info-label">Price:</span>
             <span v-if="car?.price_usd" class="info-value price">
@@ -194,6 +175,7 @@ onMounted(async () => {
 .main-image-container {
   position: relative;
   width: 100%;
+  height: 600px;
   background: #000;
   border-radius: 12px;
   overflow: hidden;
@@ -202,8 +184,7 @@ onMounted(async () => {
 
 .main-image {
   width: 100%;
-  height: auto;
-  max-height: 600px;
+  height: 100%;
   object-fit: contain;
   display: block;
 }
@@ -330,61 +311,63 @@ onMounted(async () => {
 .car-info {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
+  gap: 20px;
   margin-bottom: 32px;
-  padding: 24px;
-  background: #f8f8f8;
+  padding: 28px;
+  background: rgba(248, 248, 248, 0.5);
   border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .info-item {
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
 }
 
 .info-label {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   text-transform: uppercase;
-  color: #666;
-  letter-spacing: 0.5px;
+  color: #888;
+  letter-spacing: 0.8px;
 }
 
 .info-value {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
-  color: #1a1a1a;
+  color: #2a2a2a;
 }
 
 .price-item .info-value {
   color: #2563eb;
-  font-size: 24px;
+  font-size: 20px;
+  font-weight: 700;
 }
 
 .description {
-  margin-top: 32px;
+  margin-top: 40px;
 }
 
 .description h2 {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 700;
   margin: 0 0 16px 0;
-  color: #1a1a1a;
+  color: #2a2a2a;
 }
 
 .description p {
   font-size: 16px;
-  line-height: 1.6;
-  color: #4a4a4a;
+  line-height: 1.7;
+  color: #555;
   margin: 0;
   white-space: pre-wrap;
 }
 
 @media (max-width: 768px) {
-  .main-image {
-    max-height: 400px;
+  .main-image-container {
+    height: 400px;
   }
 
   .nav-arrow {
