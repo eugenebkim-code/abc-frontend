@@ -11,13 +11,15 @@ const error = ref("")
 
 onMounted(async () => {
   try {
-    const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/cars/${id}`)
-    const cars = await res.json()
-    car.value = cars.find((c: any) => c.id === carId)
+    const res = await fetch(
+      `${import.meta.env.VITE_API_BASE_URL}/api/cars/${carId}`
+    )
 
-    if (!car.value) {
-      error.value = "Car not found"
+    if (!res.ok) {
+      throw new Error("Not found")
     }
+
+    car.value = await res.json()
   } catch (e) {
     error.value = "Failed to load car"
   } finally {
