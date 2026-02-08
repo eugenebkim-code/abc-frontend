@@ -3,9 +3,14 @@ const API_BASE =
   import.meta.env.VITE_API_BASE ||
   ""
 
+console.log("🔧 API_BASE:", API_BASE)
+console.log("🔧 ENV:", import.meta.env)
+
 function api(path: string) {
   // добавляем /api префикс для всех запросов
-  return `${API_BASE}/api${path}`
+  const url = `${API_BASE}/api${path}`
+  console.log("🔧 API URL:", url)
+  return url
 }
 
 // =========================
