@@ -70,25 +70,80 @@ const emit = defineEmits<{
 <style scoped>
 .marquee {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   overflow-x: auto;
-  padding: 12px 16px;
-  scrollbar-width: none;
+  padding: 16px 20px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+  position: relative;
+  /* Gradient fade на краях */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 40px,
+    black calc(100% - 40px),
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 40px,
+    black calc(100% - 40px),
+    transparent
+  );
 }
+
 .marquee::-webkit-scrollbar {
-  display: none;
+  height: 6px;
 }
+
+.marquee::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+.marquee::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  transition: background 0.2s;
+}
+
+.marquee::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
 .chip {
   white-space: nowrap;
-  padding: 8px 14px;
+  padding: 12px 20px;
   border-radius: 999px;
-  background: #2a2a2a;
-  color: #ddd;
-  border: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 15px;
+  font-weight: 500;
   cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
 }
+
+.chip:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
 .chip.active {
-  background: #22c55e;
-  color: #111;
+  background: #3b82f6;
+  color: #ffffff;
+  border-color: #3b82f6;
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+}
+
+.price-filters {
+  display: flex;
+  gap: 12px;
+  padding: 0 20px 16px;
+  flex-wrap: wrap;
 }
 </style>
