@@ -19,6 +19,10 @@
       <h3>{{ car.brand }}</h3>
       <p class="model">{{ car.model }}</p>
 
+      <p v-if="car.mileage_km" class="mileage">
+        {{ Number(car.mileage_km).toLocaleString() }} miles
+      </p>
+
       <div class="meta">
         <span>{{ car.year }}</span>
         <strong>${{ car.price_usd }}</strong>
@@ -130,9 +134,16 @@ function openCar() {
 }
 
 .model {
-  margin: 4px 0 10px;
+  margin: 4px 0 8px;
   font-weight: 600;
   color: #000;  /* черный для модели */
+}
+
+.mileage {
+  margin: 0 0 8px 0;
+  font-size: 13px;
+  color: #666;
+  font-weight: 500;
 }
 
 .meta {
