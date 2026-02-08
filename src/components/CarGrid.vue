@@ -35,6 +35,14 @@ defineProps<{
   gap: 20px;
 }
 
+/* Мобильные устройства - 2 колонки */
+@media (max-width: 768px) {
+  .car-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+
 .empty {
   padding: 60px 20px;
   text-align: center;
