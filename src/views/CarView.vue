@@ -11,7 +11,7 @@ const error = ref("")
 
 onMounted(async () => {
   try {
-    const res = await fetch(`${API_BASE}/api/cars`)
+    const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/cars/${id}`)
     const cars = await res.json()
     car.value = cars.find((c: any) => c.id === carId)
 
