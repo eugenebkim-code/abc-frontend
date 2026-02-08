@@ -31,14 +31,18 @@ onMounted(async () => {
 })
 
 const brands = computed(() =>
-  Array.from(new Set(cars.value.map(c => c.brand))).sort()
+  Array.from(new Set(cars.value.map(c => (c.brand || "").trim()).filter(Boolean))).sort()
 )
 
 const filteredCars = computed(() => {
   let list = cars.value
 
   if (activeBrand.value) {
-    list = list.filter(c => c.brand === activeBrand.value)
+    const selectedBrand = activeBrand.value.trim().toLowerCase()
+    list = list.filter(c => {
+      const carBrand = (c.brand || "").trim().toLowerCase()
+      return carBrand === selectedBrand
+    })
   }
 
   if (priceFilter.value) {

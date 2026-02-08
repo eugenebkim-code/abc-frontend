@@ -131,7 +131,7 @@ onMounted(async () => {
 
           <p v-if="car?.mileage_km" class="info-item">
             <span class="info-label">Mileage:</span>
-            <span class="info-value">{{ Number(car.mileage_km).toLocaleString() }} km</span>
+            <span class="info-value">{{ Number(car.mileage_km).toLocaleString() }} miles</span>
           </p>
 
           <p class="info-item price-item">
