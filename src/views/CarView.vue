@@ -118,21 +118,22 @@ onMounted(async () => {
     </div>
 
     <div v-show="!loading && !error">
+      <!-- Back Button -->
+      <button
+        @click="goBack"
+        class="back-button"
+        aria-label="Back to home"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        <span>Back</span>
+      </button>
+
       <!-- Gallery Section -->
       <div v-if="currentImage" class="gallery-container">
         <!-- Main Image with Navigation Arrows -->
         <div class="main-image-container">
-          <!-- Back Button -->
-          <button
-            @click="goBack"
-            class="back-button"
-            aria-label="Back to home"
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M19 12H5M12 19l-7-7 7-7"/>
-            </svg>
-          </button>
-
           <img
             :src="currentImage"
             :alt="`${car?.brand} ${car?.model}`"
@@ -386,31 +387,30 @@ onMounted(async () => {
 }
 
 .back-button {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  transition: background 0.2s, transform 0.2s;
-  z-index: 10;
+  gap: 8px;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  transition: all 0.2s ease;
   backdrop-filter: blur(8px);
 }
 
 .back-button:hover {
-  background: rgba(0, 0, 0, 0.7);
-  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateX(-2px);
 }
 
 .back-button:active {
-  transform: scale(0.95);
+  transform: translateX(0);
 }
 
 .thumbnails-container {
@@ -740,15 +740,14 @@ onMounted(async () => {
   }
 
   .back-button {
-    width: 40px;
-    height: 40px;
-    top: 8px;
-    left: 8px;
+    padding: 8px 16px;
+    margin-bottom: 16px;
+    font-size: 14px;
   }
 
   .back-button svg {
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
   }
 
   .nav-arrow {
