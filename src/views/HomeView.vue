@@ -14,16 +14,6 @@ const activeBrand = ref<string | null>(null)
 const { isLoading, progress, preloadImages } = useImagePreloader()
 
 onMounted(async () => {
-  // 0. Убираем начальный лоадер из index.html
-  const initialLoader = document.getElementById("initial-loader")
-  if (initialLoader) {
-    initialLoader.style.opacity = "0"
-    initialLoader.style.transition = "opacity 0.3s ease"
-    setTimeout(() => {
-      initialLoader.remove()
-    }, 300)
-  }
-
   // 1. Загружаем данные
   profile.value = await fetchProfile()
   cars.value = await fetchCars()
@@ -36,6 +26,16 @@ onMounted(async () => {
 
   // 3. Прелоадим все изображения
   await preloadImages(imageUrls)
+
+  // 4. Убираем начальный лоадер только после полной загрузки
+  const initialLoader = document.getElementById("initial-loader")
+  if (initialLoader) {
+    initialLoader.style.opacity = "0"
+    initialLoader.style.transition = "opacity 0.3s ease"
+    setTimeout(() => {
+      initialLoader.remove()
+    }, 300)
+  }
 })
 
 const brands = computed(() => {
@@ -79,16 +79,8 @@ function matchPrice(car: any) {
 </script>
 
 <template>
-  <!-- Loading overlay - показываем только его пока загружается -->
-  <div v-if="isLoading">
-    <LoadingBar
-      :progress="progress"
-      message="Loading images..."
-    />
-  </div>
-
   <!-- Main content - показываем только когда загрузка завершена -->
-  <div v-else>
+  <div v-if="!isLoading">
     <HeroProfile v-if="profile" :profile="profile" />
 
     <ModelMarquee
