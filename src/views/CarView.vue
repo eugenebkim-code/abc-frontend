@@ -305,7 +305,7 @@ onMounted(async () => {
   font-size: 32px;
   font-weight: 700;
   margin: 0 0 24px 0;
-  color: #1a1a1a;
+  color: #ffffff;
 }
 
 .car-info {
@@ -314,9 +314,9 @@ onMounted(async () => {
   gap: 20px;
   margin-bottom: 32px;
   padding: 28px;
-  background: rgba(248, 248, 248, 0.5);
+  background: #22262c;
   border-radius: 12px;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .info-item {
@@ -330,18 +330,18 @@ onMounted(async () => {
   font-size: 13px;
   font-weight: 600;
   text-transform: uppercase;
-  color: #888;
+  color: rgba(255, 255, 255, 0.5);
   letter-spacing: 0.8px;
 }
 
 .info-value {
   font-size: 16px;
   font-weight: 600;
-  color: #2a2a2a;
+  color: #ffffff;
 }
 
 .price-item .info-value {
-  color: #2563eb;
+  color: #3b82f6;
   font-size: 20px;
   font-weight: 700;
 }
@@ -354,13 +354,13 @@ onMounted(async () => {
   font-size: 20px;
   font-weight: 700;
   margin: 0 0 16px 0;
-  color: #2a2a2a;
+  color: #ffffff;
 }
 
 .description p {
   font-size: 16px;
   line-height: 1.7;
-  color: #555;
+  color: rgba(255, 255, 255, 0.8);
   margin: 0;
   white-space: pre-wrap;
 }

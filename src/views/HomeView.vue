@@ -64,15 +64,16 @@ function matchPrice(car: any) {
 </script>
 
 <template>
-  <!-- Loading overlay -->
-  <LoadingBar
-    v-if="isLoading"
-    :progress="progress"
-    message="Loading images..."
-  />
+  <!-- Loading overlay - показываем только его пока загружается -->
+  <div v-if="isLoading">
+    <LoadingBar
+      :progress="progress"
+      message="Loading images..."
+    />
+  </div>
 
-  <!-- Main content (скрыт во время загрузки) -->
-  <div v-show="!isLoading">
+  <!-- Main content - показываем только когда загрузка завершена -->
+  <div v-else>
     <HeroProfile v-if="profile" :profile="profile" />
 
     <ModelMarquee
