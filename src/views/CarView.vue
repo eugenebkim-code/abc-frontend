@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { onMounted, ref, computed } from "vue"
-import { useRoute } from "vue-router"
+import { useRoute, useRouter } from "vue-router"
 import { fetchProfile } from "../api/api"
 
 const route = useRoute()
+const router = useRouter()
 const carId = route.params.id as string
 
 const car = ref<any>(null)
@@ -79,6 +80,10 @@ const closeLightbox = () => {
   lightboxOpen.value = false
 }
 
+const goBack = () => {
+  router.push('/')
+}
+
 onMounted(async () => {
   try {
     // Load profile and car data in parallel
@@ -117,6 +122,17 @@ onMounted(async () => {
       <div v-if="currentImage" class="gallery-container">
         <!-- Main Image with Navigation Arrows -->
         <div class="main-image-container">
+          <!-- Back Button -->
+          <button
+            @click="goBack"
+            class="back-button"
+            aria-label="Back to home"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+          </button>
+
           <img
             :src="currentImage"
             :alt="`${car?.brand} ${car?.model}`"
@@ -367,6 +383,34 @@ onMounted(async () => {
   font-size: 14px;
   font-weight: 500;
   backdrop-filter: blur(8px);
+}
+
+.back-button {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, transform 0.2s;
+  z-index: 10;
+  backdrop-filter: blur(8px);
+}
+
+.back-button:hover {
+  background: rgba(0, 0, 0, 0.7);
+  transform: scale(1.1);
+}
+
+.back-button:active {
+  transform: scale(0.95);
 }
 
 .thumbnails-container {
@@ -693,6 +737,18 @@ onMounted(async () => {
 @media (max-width: 768px) {
   .main-image-container {
     height: 400px;
+  }
+
+  .back-button {
+    width: 40px;
+    height: 40px;
+    top: 8px;
+    left: 8px;
+  }
+
+  .back-button svg {
+    width: 20px;
+    height: 20px;
   }
 
   .nav-arrow {
