@@ -16,17 +16,21 @@ defineProps<{
 <template>
   <section class="hero">
     <div class="hero-inner">
-      <img
-        v-if="profile.hero_image"
-        :src="profile.hero_image"
-        class="hero-img"
-        alt="Profile"
-      />
+      <div class="profile-content">
+        <img
+          v-if="profile.hero_image"
+          :src="profile.hero_image"
+          class="hero-img"
+          alt="Profile"
+        />
 
-      <h1>{{ profile.name }}</h1>
-      <h2>{{ profile.title }}</h2>
-      <p class="subtitle">{{ profile.subtitle }}</p>
-      <p class="desc">{{ profile.description }}</p>
+        <div class="profile-info">
+          <h1>{{ profile.name }}</h1>
+          <h2 class="company">ABCars</h2>
+          <p class="subtitle">{{ profile.subtitle }}</p>
+          <p class="desc">{{ profile.description }}</p>
+        </div>
+      </div>
 
       <div class="contact-container">
         <!-- WhatsApp -->
@@ -82,30 +86,61 @@ defineProps<{
 <style scoped>
 .hero {
   padding: 32px 16px;
-  text-align: center;
 }
 
 .hero-inner {
-  max-width: 720px;
+  max-width: 900px;
   margin: 0 auto;
 }
 
+.profile-content {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+  margin-bottom: 32px;
+}
+
 .hero-img {
-  width: 120px;
-  height: 120px;
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
   object-fit: cover;
-  margin-bottom: 16px;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.profile-info {
+  flex: 1;
+  text-align: left;
+}
+
+.profile-info h1 {
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  color: #ffffff;
+}
+
+.company {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+  color: #3b82f6;
 }
 
 .subtitle {
   font-weight: 500;
-  margin-top: 8px;
+  font-size: 16px;
+  margin: 0 0 12px 0;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .desc {
-  margin-top: 12px;
-  opacity: 0.85;
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0;
+  opacity: 0.75;
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .contact-container {
@@ -219,6 +254,25 @@ defineProps<{
 }
 
 @media (max-width: 768px) {
+  .profile-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .profile-info {
+    text-align: center;
+  }
+
+  .profile-info h1 {
+    font-size: 26px;
+  }
+
+  .company {
+    font-size: 18px;
+  }
+
   .contact-container {
     flex-direction: column;
     gap: 20px;
