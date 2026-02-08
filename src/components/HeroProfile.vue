@@ -28,24 +28,53 @@ defineProps<{
       <p class="subtitle">{{ profile.subtitle }}</p>
       <p class="desc">{{ profile.description }}</p>
 
-      <div class="cta">
+      <div class="contact-container">
+        <!-- Phone (left) -->
         <a
-          :href="profile.whatsapp"
-          target="_blank"
-          rel="noopener"
-          class="btn whatsapp"
+          v-if="profile.phone"
+          :href="`tel:${profile.phone}`"
+          class="contact-icon phone-icon"
+          title="Call"
         >
-          Contact via WhatsApp
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+          <span class="phone-number">{{ profile.phone }}</span>
         </a>
 
+        <!-- Contact Buttons (center) -->
+        <div class="cta">
+          <a
+            :href="profile.whatsapp"
+            target="_blank"
+            rel="noopener"
+            class="btn whatsapp"
+          >
+            Contact via WhatsApp
+          </a>
+
+          <a
+            v-if="profile.telegram"
+            :href="profile.telegram"
+            target="_blank"
+            rel="noopener"
+            class="btn telegram"
+          >
+            Contact via Telegram
+          </a>
+        </div>
+
+        <!-- Waze Pin (right) -->
         <a
-          v-if="profile.telegram"
-          :href="profile.telegram"
+          href="https://waze.com/ul/hwyd64vy9m"
           target="_blank"
           rel="noopener"
-          class="btn telegram"
+          class="contact-icon waze-icon"
+          title="Open in Waze"
         >
-          Contact via Telegram
+          <svg width="32" height="32" viewBox="0 0 512 512" fill="currentColor">
+            <path d="M502.17 201.67C516.69 287.53 471.23 369.59 389 409.8c13 34.1-12.4 70.2-48.32 70.2a51.68 51.68 0 0 1-51.57-49c-6.44.19-64.2 0-76.33-.64A51.69 51.69 0 0 1 159 479.92c-33.86-1.36-57.95-34.84-47-67.92-37.21-13.11-72.54-34.87-99.62-70.8-13-17.28-.48-41.8 20.84-41.8 46.31 0 32.22-54.17 43.15-110.26C94.8 95.2 193.12 32 288.09 32c102.48 0 195.45 70.46 214.08 169.67zM373.51 388.28c42-19.18 81.33-56.71 96.29-102.14 40.48-123.09-64.15-228-181.71-228-83.45 0-170.32 55.42-186.07 136-9.53 48.91 5 131.35-68.75 131.35C58.21 358.6 91.6 378.11 127 389.54c24.66-21.8 63.87-15.47 79.83 14.34 14.22 1 79.19 1.18 87.9.82a51.69 51.69 0 0 1 78.78-16.42zM205.12 187.13c0-34.74 50.84-34.75 50.84 0s-50.84 34.74-50.84 0zm116.57 0c0-34.74 50.86-34.75 50.86 0s-50.86 34.75-50.86 0zm-122.62 70.69c-3.44-16.94 22.18-22.18 25.62-5.21l6.14 30.88c.95 4.54 6.2 4.54 7.15 0l6.14-30.88c3.44-16.94 29.09-11.73 25.62 5.21l-8.73 44.35c-4.7 23.88-39.34 22.11-41.85 0z"/>
+          </svg>
         </a>
       </div>
     </div>
@@ -81,8 +110,52 @@ defineProps<{
   opacity: 0.85;
 }
 
+.contact-container {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.contact-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  padding: 12px;
+  border-radius: 12px;
+}
+
+.contact-icon:hover {
+  color: #3b82f6;
+  background: rgba(59, 130, 246, 0.1);
+  transform: translateY(-2px);
+}
+
+.phone-icon svg {
+  stroke: currentColor;
+}
+
+.phone-number {
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.waze-icon {
+  color: #33ccff;
+}
+
+.waze-icon:hover {
+  color: #00d4ff;
+}
+
 .cta {
-  margin-top: 20px;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -121,5 +194,17 @@ defineProps<{
 
 .btn.telegram:hover {
   background: #0077b5;
+}
+
+@media (max-width: 768px) {
+  .contact-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .contact-icon {
+    width: 100%;
+    max-width: 200px;
+  }
 }
 </style>
