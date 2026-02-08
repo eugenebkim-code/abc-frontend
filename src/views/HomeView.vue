@@ -1,19 +1,33 @@
 <script setup lang="ts">
 import { onMounted, ref, computed } from "vue"
 import { fetchProfile, fetchCars } from "../api/api"
+import { useImagePreloader } from "../composables/useImagePreloader"
 import HeroProfile from "../components/HeroProfile.vue"
 import CarGrid from "../components/CarGrid.vue"
 import ModelMarquee from "../components/ModelMarquee.vue"
+import LoadingBar from "../components/LoadingBar.vue"
 
 const profile = ref<any | null>(null)
 const cars = ref<any[]>([])
 const activeBrand = ref<string | null>(null)
 
+const { isLoading, progress, preloadImages } = useImagePreloader()
+
 onMounted(async () => {
+  // 1. Загружаем данные
   profile.value = await fetchProfile()
   cars.value = await fetchCars()
 
   console.log("CARS FROM API", cars.value)
+
+  // 2. Собираем URLs всех изображений
+  const imageUrls = [
+    profile.value?.hero_image,
+    ...cars.value.map(c => c.cover_image)
+  ].filter(Boolean) as string[]
+
+  // 3. Прелоадим все изображения
+  await preloadImages(imageUrls)
 })
 
 const brands = computed(() =>
@@ -50,7 +64,15 @@ function matchPrice(car: any) {
 </script>
 
 <template>
-  <div>
+  <!-- Loading overlay -->
+  <LoadingBar
+    v-if="isLoading"
+    :progress="progress"
+    message="Loading images..."
+  />
+
+  <!-- Main content (скрыт во время загрузки) -->
+  <div v-show="!isLoading">
     <HeroProfile v-if="profile" :profile="profile" />
 
     <ModelMarquee
