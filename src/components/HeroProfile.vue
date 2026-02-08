@@ -259,46 +259,50 @@ defineProps<{
   }
 
   .profile-content {
-    gap: 16px;
+    gap: 12px;
   }
 
   .hero-img {
-    width: 80px;
-    height: 80px;
+    width: 90px;
+    height: 120px;
+    border-radius: 8px;
   }
 
   .profile-info h1 {
-    font-size: 20px;
+    font-size: 18px;
     margin-bottom: 4px;
   }
 
   .company {
-    font-size: 16px;
-    margin-bottom: 10px;
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #ffffff;
   }
 
   .subtitle {
-    font-size: 14px;
-    margin-bottom: 8px;
+    font-size: 13px;
+    margin-bottom: 6px;
   }
 
   .desc {
-    font-size: 13px;
+    font-size: 12px;
   }
 
   .contact-container {
     max-width: 100%;
+    padding: 0 20px;
   }
 
   .btn {
-    min-width: 180px;
-    font-size: 14px;
-    padding: 10px 18px;
+    min-width: 160px;
+    max-width: 250px;
+    font-size: 13px;
+    padding: 10px 16px;
   }
 
   .btn.phone {
-    font-size: 15px;
-    padding: 12px 18px;
+    font-size: 14px;
+    padding: 11px 16px;
   }
 }
 </style>
