@@ -21,7 +21,7 @@
 
       <div class="meta">
         <span>{{ car.year }}</span>
-        <strong>\${{ car.price_usd }}</strong>
+        <strong>${{ car.price_usd }}</strong>
       </div>
     </div>
   </article>
