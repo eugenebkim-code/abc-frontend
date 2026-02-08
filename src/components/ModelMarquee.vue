@@ -2,10 +2,12 @@
 defineProps<{
   brands: string[]
   activeBrand: string | null
+  priceFilter: "low" | "mid" | "high" | null
 }>()
 
 const emit = defineEmits<{
   (e: "select", brand: string | null): void
+  (e: "price", value: "low" | "mid" | "high" | null): void
 }>()
 </script>
 
@@ -31,38 +33,38 @@ const emit = defineEmits<{
   </div>
 
   <div class="price-filters">
-  <button
-    class="chip"
-    :class="{ active: priceFilter === null }"
-    @click="priceFilter = null"
-  >
-    Any price
-  </button>
+    <button
+      class="chip"
+      :class="{ active: priceFilter === null }"
+      @click="emit('price', null)"
+    >
+      Any price
+    </button>
 
-  <button
-    class="chip"
-    :class="{ active: priceFilter === 'low' }"
-    @click="priceFilter = 'low'"
-  >
-    Under $3k
-  </button>
+    <button
+      class="chip"
+      :class="{ active: priceFilter === 'low' }"
+      @click="emit('price', 'low')"
+    >
+      Under $3k
+    </button>
 
-  <button
-    class="chip"
-    :class="{ active: priceFilter === 'mid' }"
-    @click="priceFilter = 'mid'"
-  >
-    $3k–$6k
-  </button>
+    <button
+      class="chip"
+      :class="{ active: priceFilter === 'mid' }"
+      @click="emit('price', 'mid')"
+    >
+      $3k–$6k
+    </button>
 
-  <button
-    class="chip"
-    :class="{ active: priceFilter === 'high' }"
-    @click="priceFilter = 'high'"
-  >
-    $6k+
-  </button>
-</div>
+    <button
+      class="chip"
+      :class="{ active: priceFilter === 'high' }"
+      @click="emit('price', 'high')"
+    >
+      $6k+
+    </button>
+  </div>
 </template>
 
 <style scoped>

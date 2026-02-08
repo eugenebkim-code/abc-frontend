@@ -11,7 +11,7 @@ const error = ref("")
 
 onMounted(async () => {
   try {
-    const res = await fetch("http://127.0.0.1:8000/api/cars")
+    const res = await fetch(`${API_BASE}/api/cars`)
     const cars = await res.json()
     car.value = cars.find((c: any) => c.id === carId)
 

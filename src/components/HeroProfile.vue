@@ -1,23 +1,23 @@
 <script setup lang="ts">
 defineProps<{
   profile: {
-    name: string;
-    title: string;
-    subtitle: string;
-    description: string;
-    whatsapp: string;
-    phone: string;
-    hero_image_url: string;
-  };
-}>();
+    name: string
+    title: string
+    subtitle: string
+    description: string
+    whatsapp: string
+    phone: string
+    hero_image_url?: string
+  }
+}>()
 </script>
 
 <template>
   <section class="hero">
     <div class="hero-inner">
       <img
-        v-if="profile.hero_image || profile.hero_image_url"
-        :src="profile.hero_image || profile.hero_image_url"
+        v-if="profile.hero_image_url"
+        :src="profile.hero_image_url"
         class="hero-img"
         alt="Profile"
       />

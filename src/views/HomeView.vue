@@ -60,7 +60,9 @@ onMounted(async () => {
     <ModelMarquee
       :brands="brands"
       :activeBrand="activeBrand"
+      :priceFilter="priceFilter"
       @select="b => activeBrand = b"
+      @price="p => priceFilter = p"
     />
 
     <CarGrid :cars="filteredCars" />
