@@ -1,7 +1,11 @@
-const API_BASE = import.meta.env.VITE_API_BASE_URL
+const API_BASE =
+  import.meta.env.VITE_API_BASE_URL ||
+  import.meta.env.VITE_API_BASE ||
+  ""
 
 function api(path: string) {
-  return `${API_BASE}/api${path}`
+  // backend УЖЕ без /api в начале
+  return `${API_BASE}${path}`
 }
 
 // =========================
@@ -31,17 +35,13 @@ export async function fetchCarById(id: string) {
 }
 
 // =========================
-// META
+// META (пока заглушки, чтобы не ломалось)
 // =========================
 
 export async function fetchModels() {
-  const res = await fetch(api("/meta/models"))
-  if (!res.ok) throw new Error("Failed to load models")
-  return res.json()
+  return []
 }
 
 export async function fetchPriceRanges() {
-  const res = await fetch(api("/meta/price-ranges"))
-  if (!res.ok) throw new Error("Failed to load price ranges")
-  return res.json()
+  return []
 }
