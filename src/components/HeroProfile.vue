@@ -6,6 +6,7 @@ defineProps<{
     subtitle: string
     description: string
     whatsapp: string
+    telegram?: string
     phone: string
     hero_image?: string
   }
@@ -32,9 +33,19 @@ defineProps<{
           :href="profile.whatsapp"
           target="_blank"
           rel="noopener"
-          class="btn primary"
+          class="btn whatsapp"
         >
           Contact via WhatsApp
+        </a>
+
+        <a
+          v-if="profile.telegram"
+          :href="profile.telegram"
+          target="_blank"
+          rel="noopener"
+          class="btn telegram"
+        >
+          Contact via Telegram
         </a>
       </div>
     </div>
@@ -72,14 +83,43 @@ defineProps<{
 
 .cta {
   margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
 }
 
-.btn.primary {
-  background: #25d366;
+.btn {
   color: #fff;
-  padding: 12px 18px;
-  border-radius: 6px;
+  padding: 12px 24px;
+  border-radius: 8px;
   text-decoration: none;
   font-weight: 600;
+  font-size: 16px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: inline-block;
+  min-width: 220px;
+  text-align: center;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn.whatsapp {
+  background: #25d366;
+}
+
+.btn.whatsapp:hover {
+  background: #20ba5a;
+}
+
+.btn.telegram {
+  background: #0088cc;
+}
+
+.btn.telegram:hover {
+  background: #0077b5;
 }
 </style>
