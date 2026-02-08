@@ -1,13 +1,3 @@
-<template>
-  <section class="car-grid">
-    <CarCard
-      v-for="car in cars"
-      :key="car.id"
-      :car="car"
-    />
-  </section>
-</template>
-
 <script setup lang="ts">
 import CarCard from "./CarCard.vue"
 
@@ -16,11 +6,39 @@ defineProps<{
 }>()
 </script>
 
+<template>
+  <section class="car-grid-wrapper">
+    <div v-if="!cars || cars.length === 0" class="empty">
+      No cars found
+    </div>
+
+    <section v-else class="car-grid">
+      <CarCard
+        v-for="car in cars"
+        :key="car.id"
+        :car="car"
+      />
+    </section>
+  </section>
+</template>
+
 <style scoped>
+.car-grid-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
 .car-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 20px;
-  padding: 24px;
+}
+
+.empty {
+  padding: 60px 20px;
+  text-align: center;
+  color: #9ca3af;
+  font-size: 18px;
 }
 </style>

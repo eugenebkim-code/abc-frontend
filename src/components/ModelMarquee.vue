@@ -7,7 +7,7 @@ defineProps<{
 
 const emit = defineEmits<{
   (e: "select", brand: string | null): void
-  (e: "price", value: "low" | "mid" | "high" | null): void
+  (e: "price", price: "low" | "mid" | "high" | null): void
 }>()
 </script>
 
