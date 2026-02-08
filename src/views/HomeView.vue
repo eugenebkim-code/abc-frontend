@@ -5,13 +5,12 @@ import { useImagePreloader } from "../composables/useImagePreloader"
 import HeroProfile from "../components/HeroProfile.vue"
 import CarGrid from "../components/CarGrid.vue"
 import ModelMarquee from "../components/ModelMarquee.vue"
-import LoadingBar from "../components/LoadingBar.vue"
 
 const profile = ref<any | null>(null)
 const cars = ref<any[]>([])
 const activeBrand = ref<string | null>(null)
 
-const { isLoading, progress, preloadImages } = useImagePreloader()
+const { isLoading, preloadImages } = useImagePreloader()
 
 onMounted(async () => {
   // 1. Загружаем данные
