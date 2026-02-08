@@ -9,6 +9,7 @@ const car = ref<any>(null)
 const loading = ref(true)
 const error = ref("")
 const currentImageIndex = ref(0)
+const lightboxOpen = ref(false)
 
 const currentImage = computed(() => {
   if (!car.value?.photos?.length) return null
@@ -32,6 +33,14 @@ const prevImage = () => {
 
 const selectImage = (index: number) => {
   currentImageIndex.value = index
+}
+
+const openLightbox = () => {
+  lightboxOpen.value = true
+}
+
+const closeLightbox = () => {
+  lightboxOpen.value = false
 }
 
 onMounted(async () => {
@@ -71,7 +80,8 @@ onMounted(async () => {
           <img
             :src="currentImage"
             :alt="`${car?.brand} ${car?.model}`"
-            class="main-image"
+            class="main-image clickable"
+            @click="openLightbox"
           />
 
           <!-- Navigation Arrows -->
@@ -164,6 +174,22 @@ onMounted(async () => {
         </div>
       </div>
     </div>
+
+    <!-- Lightbox Modal -->
+    <div v-if="lightboxOpen" class="lightbox" @click="closeLightbox">
+      <button class="lightbox-close" @click="closeLightbox" aria-label="Close">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      <img
+        :src="currentImage"
+        :alt="`${car?.brand} ${car?.model}`"
+        class="lightbox-image"
+        @click.stop
+      />
+    </div>
   </div>
 </template>
 
@@ -187,6 +213,10 @@ onMounted(async () => {
   height: 100%;
   object-fit: contain;
   display: block;
+}
+
+.main-image.clickable {
+  cursor: zoom-in;
 }
 
 .nav-arrow {
@@ -363,6 +393,63 @@ onMounted(async () => {
   color: rgba(255, 255, 255, 0.8);
   margin: 0;
   white-space: pre-wrap;
+}
+
+/* Lightbox Styles */
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  cursor: zoom-out;
+  padding: 20px;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.lightbox-image {
+  max-width: 95%;
+  max-height: 95%;
+  object-fit: contain;
+  cursor: default;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #ffffff;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 10001;
+}
+
+.lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
 }
 
 @media (max-width: 768px) {
