@@ -1,5 +1,5 @@
 <template>
-  <article class="card" @click="openCar">
+  <article class="card" :class="{ sold: isSold }" @click="openCar">
     <div class="image-wrap">
       <img
         v-if="car.cover_image"
@@ -8,6 +8,11 @@
         loading="lazy"
       />
       <div v-else class="no-photo">No photo</div>
+
+      <!-- SOLD Overlay -->
+      <div v-if="isSold" class="sold-overlay">
+        <span class="sold-badge">SOLD</span>
+      </div>
     </div>
 
     <div class="info">
@@ -23,6 +28,7 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from "vue"
 import { useRouter } from "vue-router"
 
 const props = defineProps<{
@@ -30,6 +36,10 @@ const props = defineProps<{
 }>()
 
 const router = useRouter()
+
+const isSold = computed(() => {
+  return props.car.status === "sold"
+})
 
 function openCar() {
   router.push(`/car/${props.car.id}`)
@@ -56,6 +66,7 @@ function openCar() {
   width: 100%;
   aspect-ratio: 4 / 3;
   background: #f3f3f3;
+  position: relative;
 }
 
 .image-wrap img {
@@ -71,6 +82,40 @@ function openCar() {
   justify-content: center;
   color: #999;
   font-size: 14px;
+}
+
+/* SOLD overlay */
+.sold-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.sold-badge {
+  color: #ffffff;
+  font-size: 48px;
+  font-weight: 900;
+  letter-spacing: 8px;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  user-select: none;
+}
+
+.card.sold .info {
+  opacity: 0.7;
+}
+
+@media (max-width: 768px) {
+  .sold-badge {
+    font-size: 32px;
+    letter-spacing: 4px;
+  }
 }
 
 /* инфо */
