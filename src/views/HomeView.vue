@@ -12,6 +12,8 @@ const activeBrand = ref<string | null>(null)
 onMounted(async () => {
   profile.value = await fetchProfile()
   cars.value = await fetchCars()
+
+  console.log("CARS FROM API", cars.value)
 })
 
 const brands = computed(() =>
@@ -45,12 +47,6 @@ function matchPrice(car: any) {
   return true
 }
 
-onMounted(async () => {
-  profile.value = await fetchProfile()
-  cars.value = await fetchCars()
-
-  console.log("CARS FROM API", cars.value)
-})
 </script>
 
 <template>

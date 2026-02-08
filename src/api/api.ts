@@ -4,8 +4,8 @@ const API_BASE =
   ""
 
 function api(path: string) {
-  // backend УЖЕ без /api в начале
-  return `${API_BASE}${path}`
+  // добавляем /api префикс для всех запросов
+  return `${API_BASE}/api${path}`
 }
 
 // =========================
