@@ -18,8 +18,6 @@ onMounted(async () => {
   profile.value = await fetchProfile()
   cars.value = await fetchCars()
 
-  console.log("CARS FROM API", cars.value)
-
   // 2. Собираем URLs всех изображений
   const imageUrls = [
     profile.value?.hero_image,
@@ -30,9 +28,12 @@ onMounted(async () => {
   await preloadImages(imageUrls)
 })
 
-const brands = computed(() =>
-  Array.from(new Set(cars.value.map(c => (c.brand || "").trim()).filter(Boolean))).sort()
-)
+const brands = computed(() => {
+  const brandList = cars.value
+    .map(c => (c.brand || "").trim())
+    .filter(b => b.length > 0)
+  return Array.from(new Set(brandList)).sort()
+})
 
 const filteredCars = computed(() => {
   let list = cars.value
