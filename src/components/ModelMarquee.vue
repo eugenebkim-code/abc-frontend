@@ -12,67 +12,78 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <div class="marquee">
-    <button
-      class="chip"
-      :class="{ active: activeBrand === null }"
-      @click="emit('select', null)"
-    >
-      All
-    </button>
+  <div class="filters-card">
+    <div class="marquee">
+      <button
+        class="chip"
+        :class="{ active: activeBrand === null }"
+        @click="emit('select', null)"
+      >
+        All
+      </button>
 
-    <button
-      v-for="b in brands"
-      :key="b"
-      class="chip"
-      :class="{ active: activeBrand === b }"
-      @click="emit('select', b)"
-    >
-      {{ b }}
-    </button>
-  </div>
+      <button
+        v-for="b in brands"
+        :key="b"
+        class="chip"
+        :class="{ active: activeBrand === b }"
+        @click="emit('select', b)"
+      >
+        {{ b }}
+      </button>
+    </div>
 
-  <div class="price-filters">
-    <button
-      class="chip"
-      :class="{ active: priceFilter === null }"
-      @click="emit('price', null)"
-    >
-      Any price
-    </button>
+    <div class="price-filters">
+      <button
+        class="chip"
+        :class="{ active: priceFilter === null }"
+        @click="emit('price', null)"
+      >
+        Any price
+      </button>
 
-    <button
-      class="chip"
-      :class="{ active: priceFilter === 'low' }"
-      @click="emit('price', 'low')"
-    >
-      Under $3k
-    </button>
+      <button
+        class="chip"
+        :class="{ active: priceFilter === 'low' }"
+        @click="emit('price', 'low')"
+      >
+        Under $3k
+      </button>
 
-    <button
-      class="chip"
-      :class="{ active: priceFilter === 'mid' }"
-      @click="emit('price', 'mid')"
-    >
-      $3k–$6k
-    </button>
+      <button
+        class="chip"
+        :class="{ active: priceFilter === 'mid' }"
+        @click="emit('price', 'mid')"
+      >
+        $3k–$6k
+      </button>
 
-    <button
-      class="chip"
-      :class="{ active: priceFilter === 'high' }"
-      @click="emit('price', 'high')"
-    >
-      $6k+
-    </button>
+      <button
+        class="chip"
+        :class="{ active: priceFilter === 'high' }"
+        @click="emit('price', 'high')"
+      >
+        $6k+
+      </button>
+    </div>
   </div>
 </template>
 
 <style scoped>
+.filters-card {
+  max-width: 1200px;
+  margin: 0 auto 24px;
+  overflow: hidden;
+  background: #1e293b;
+  border-radius: 12px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
 .marquee {
   display: flex;
   gap: 12px;
   overflow-x: auto;
-  padding: 16px 20px;
+  padding: 20px 20px 16px;
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
   position: relative;

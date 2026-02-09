@@ -281,41 +281,40 @@ defineProps<{
   }
 
   .card-header {
-    padding: 24px 20px;
+    padding: 20px 16px;
   }
 
   .profile-layout {
-    flex-direction: column-reverse;
-    gap: 20px;
+    gap: 16px;
   }
 
   .profile-info {
-    flex: 1;
+    flex: 2;
   }
 
   .profile-info h1 {
-    font-size: 22px;
+    font-size: 18px;
   }
 
   .business-badge {
-    font-size: 13px;
-    padding: 5px 12px;
+    font-size: 12px;
+    padding: 4px 12px;
   }
 
   .subtitle {
-    font-size: 14px;
+    font-size: 13px;
   }
 
   .description {
-    font-size: 14px;
+    font-size: 13px;
   }
 
   .profile-image-container {
-    width: 100%;
+    flex: 1;
   }
 
   .image-wrapper {
-    height: 200px;
+    min-height: 140px;
   }
 
   .separator {
